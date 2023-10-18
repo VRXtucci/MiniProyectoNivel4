@@ -28,28 +28,33 @@ class AlumnosController extends Controller
     {
         // Valida los datos entrantes
         $request->validate([
-            'nombre_materia' => 'required',
-            'descripccion' => 'required', // Asegúrate de que estés validando el campo "apellido"
+            'nombre' => 'required',
+            'apellido' => 'required',
+            'direccion' => 'required',
+            'email' => 'required|email|unique:alumnos', // Valida que el correo sea único
         ]);
 
         // Crea un nuevo usuario utilizando los datos de la solicitud
         $alumnos = new alumnos();
-        $alumnos->nombre = $request->input('nombre_materia');
-        $alumnos->apellido = $request->input('descripcion'); // Asegúrate de asignar el apellido
+        $alumnos->nombre = $request->input('nombre');
+        $alumnos->apellido = $request->input('apellido');
+        $alumnos->direccion = $request->input('direccion');
+        $alumnos->email = $request->input('email');
 
         // Guarda el usuario en la base de datos
         $alumnos->save();
 
         // Devuelve una respuesta de éxito
-        return response()->json(['message' => 'Materia creado con éxito'], 201);
+        return response()->json(['message' => 'Alumno creado con éxito'], 201);
     }
 
     public function update(Request $request, $id)
     {
-        // Valida los datos entrantes
         $request->validate([
-            'nombre_materia' => 'required',
-            'descripccion' => 'required', // Asegúrate de que estés validando el campo "apellido"
+            'nombre' => 'required',
+            'apellido' => 'required',
+            'direccion' => 'required',
+            'email' => 'required|email|unique:alumnos', // Valida que el correo sea único
         ]);
 
         // Encuentra el usuario existente por ID
@@ -60,15 +65,17 @@ class AlumnosController extends Controller
         }
 
         // Actualiza los campos del usuario en función de los datos de la solicitud
-        $alumnos->nombre = $request->input('nombre_materia');
-        $alumnos->apellido = $request->input('descripcion');
+        $alumnos->nombre = $request->input('nombre');
+        $alumnos->apellido = $request->input('apellido');
+        $alumnos->nombre = $request->input('direccion');
+        $alumnos->apellido = $request->input('email');
         // Actualiza otros campos según sea necesario
 
         // Guarda los cambios en la base de datos
         $alumnos->save();
 
         // Devuelve una respuesta de éxito
-        return response()->json(['message' => 'Materia actualizado con éxito'], 200);
+        return response()->json(['message' => 'Alumno actualizado con éxito'], 200);
     }
 
     public function destroy($id)
@@ -76,12 +83,12 @@ class AlumnosController extends Controller
         $alumnos = alumnos::find($id);
 
         if (!$alumnos) {
-            return response()->json(['message' => 'Usuario no encontrado'], 404);
+            return response()->json(['message' => 'Alumno no encontrado'], 404);
         }
 
         // Utiliza el método destroy para eliminar el usuario por su ID
         alumnos::destroy($id);
 
-        return response()->json(['message' => 'Usuario eliminado con éxito'], 200);
+        return response()->json(['message' => 'Alumno eliminado con éxito'], 200);
     }
 }
