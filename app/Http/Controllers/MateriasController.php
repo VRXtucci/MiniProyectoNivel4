@@ -29,13 +29,15 @@ class materiasController extends Controller
         // Valida los datos entrantes
         $request->validate([
             'nombre_materia' => 'required',
-            'descripcion' => 'required', // Asegúrate de que estés validando el campo "apellido"
+            'descripcion' => 'required',
+            'docente_id' => 'required',
         ]);
 
         // Crea un nuevo usuario utilizando los datos de la solicitud
         $materias = new materias();
         $materias->nombre_materia = $request->input('nombre_materia');
-        $materias->descripcion = $request->input('descripcion'); // Asegúrate de asignar el apellido
+        $materias->descripcion = $request->input('descripcion');
+        $materias->docente_id = $request->input('docente_id');
 
         // Guarda el usuario en la base de datos
         $materias->save();

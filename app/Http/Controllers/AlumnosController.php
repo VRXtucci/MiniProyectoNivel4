@@ -61,14 +61,14 @@ class AlumnosController extends Controller
         $alumnos = alumnos::find($id);
 
         if (!$alumnos) {
-            return response()->json(['message' => 'Materia no encontrado'], 404);
+            return response()->json(['message' => 'Alumno no encontrado'], 404);
         }
 
         // Actualiza los campos del usuario en función de los datos de la solicitud
         $alumnos->nombre = $request->input('nombre');
         $alumnos->apellido = $request->input('apellido');
-        $alumnos->nombre = $request->input('direccion');
-        $alumnos->apellido = $request->input('email');
+        $alumnos->direccion = $request->input('direccion');
+        $alumnos->email = $request->input('email');
         // Actualiza otros campos según sea necesario
 
         // Guarda los cambios en la base de datos
